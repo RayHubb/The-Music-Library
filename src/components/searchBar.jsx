@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import asios from 'axios';
+import axios from 'axios';
 
 class SearchBar extends Component {
     render () {

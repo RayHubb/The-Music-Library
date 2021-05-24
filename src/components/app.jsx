@@ -12,6 +12,9 @@ class App extends Component {
                 <span>
                     <MusicTable />
                 </span>
+                <span>
+                    <SongForm />
+                </span>
             </div>
         );
     }

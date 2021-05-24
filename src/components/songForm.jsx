@@ -14,51 +14,41 @@ class SongForm extends Component {
         }
     }
 
-    componentDidMount() {
-        axios.post('http://127.0.0.1:8000/music/')
-        .then(res =>{
-            console.log(res.data)
-            this.setState({state: res.data })
-        });
+    handleFormChange = (e) => {
+        this.setState({ [e.target.name]: e.target.value})
     }
-
-    handleTitleChange = (event) => {
-        this.setState({
-            title: event.target.value,
-            artist: event.target.value,
-            album: event.target.value,
-            release_date: event.target.release_date,
-            genre: event.target.value
-        })
+    
+    submitButton = e => {
+        e.preventDefault()
+        console.log(this.state)
+        axios
+            .post('http://127.0.0.1:8000/add_song/', this.state)
+            .then(response => {
+                console.log(response)
+            })
     }
 
     render() {
+        const { title, artist, album, release_date, genre } = this.state;
         return (  
             <div>
-                <form>
+                <form onSubmit={this.submitButton}>
                     <label>Song Title :
-                    <input type="text" name="songTitle" 
-                    value={this.state.title} />
-                    onChange={this.handleFormChange}
+                    <input onChange={this.handleFormChange} type="text" name="title" value={title} />                    
                     </label>
                     <label>Artist :
-                    <input type="text" name="artist" 
-                    value={this.state.artist} />
-                    onchange
+                    <input onChange={this.handleFormChange} type="text" name="artist" value={artist} />
                     </label>
                     <label>Album :
-                    <input type="text" name="album" 
-                    value={this.state.album} />
+                    <input onChange={this.handleFormChange} type="text" name="album" value={album} />
                     </label>
                     <label>Release Date :
-                    <input type="date" name="releaseDate" 
-                    value={this.state.release_date} />
+                    <input onChange={this.handleFormChange} type="text" name="release_date" value={release_date} />
                     </label>
                     <label>Genre :
-                    <input type="text" name="genre" 
-                    value={this.state.genre}  />
+                    <input onChange={this.handleFormChange} type="text" name="genre" value={genre}  />
                     </label>                    
-                    <button type="submit" value="Submit" />
+                    <button type="submit">Submit</button>
                 </form> 
             </div>
         );
